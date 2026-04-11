@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Aminogli Safety — AI Email Protection",
-  description: "AI-powered phishing detection system that analyzes emails and SMS messages",
+  title: "HaloSafety — AI Cyber Defense Platform",
+  description: "AI-powered cyber defense platform with phishing detection, campaign tracking, and threat intelligence",
 };
 
 export default function RootLayout({

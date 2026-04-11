@@ -1,35 +1,80 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
-  --card: #ffffff;
-  --border: #e2e8f0;
-  --muted: #64748b;
-  --safe: #22c55e;
-  --safe-bg: #f0fdf4;
-  --suspicious: #eab308;
-  --suspicious-bg: #fefce8;
-  --dangerous: #ef4444;
-  --dangerous-bg: #fef2f2;
-  --primary: #6366f1;
-  --primary-light: #eef2ff;
+  --background: #0D0D0D;
+  --background-secondary: #111114;
+  --foreground: #F4F4F5;
+  --card: #16161A;
+  --card-hover: #1C1C21;
+  --border: #26262A;
+  --border-bright: #3F3F46;
+  --muted: #52525B;
+  --muted-light: #A1A1AA;
+
+  --safe: #2DD4BF;
+  --safe-bg: rgba(45, 212, 191, 0.1);
+  --safe-glow: rgba(45, 212, 191, 0.15);
+  --suspicious: #F59E0B;
+  --suspicious-bg: rgba(245, 158, 11, 0.1);
+  --suspicious-glow: rgba(245, 158, 11, 0.15);
+  --dangerous: #D43370;
+  --dangerous-bg: rgba(212, 51, 112, 0.1);
+  --dangerous-glow: rgba(212, 51, 112, 0.15);
+
+  --primary: #A855F7;
+  --primary-light: rgba(168, 85, 247, 0.1);
+  --primary-glow: rgba(168, 85, 247, 0.2);
+  --cyan: #2DD4BF;
+  --cyan-bg: rgba(45, 212, 191, 0.1);
+  --purple: #A855F7;
+  --purple-bg: rgba(168, 85, 247, 0.1);
+  --indigo: #6366F1;
+  --indigo-bg: rgba(99, 102, 241, 0.1);
+  --pink: #D43370;
+  --pink-bg: rgba(212, 51, 112, 0.1);
+
+  --popover: #1F1F23;
+  --nav-pill: rgba(26, 26, 30, 0.8);
+  --nav-active: #2D2D33;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-secondary: var(--background-secondary);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
+  --color-card-hover: var(--card-hover);
   --color-border: var(--border);
+  --color-border-bright: var(--border-bright);
   --color-muted: var(--muted);
+  --color-muted-light: var(--muted-light);
+
   --color-safe: var(--safe);
   --color-safe-bg: var(--safe-bg);
+  --color-safe-glow: var(--safe-glow);
   --color-suspicious: var(--suspicious);
   --color-suspicious-bg: var(--suspicious-bg);
+  --color-suspicious-glow: var(--suspicious-glow);
   --color-dangerous: var(--dangerous);
   --color-dangerous-bg: var(--dangerous-bg);
+  --color-dangerous-glow: var(--dangerous-glow);
+
   --color-primary: var(--primary);
   --color-primary-light: var(--primary-light);
+  --color-primary-glow: var(--primary-glow);
+  --color-cyan: var(--cyan);
+  --color-cyan-bg: var(--cyan-bg);
+  --color-purple: var(--purple);
+  --color-purple-bg: var(--purple-bg);
+  --color-indigo: var(--indigo);
+  --color-indigo-bg: var(--indigo-bg);
+  --color-pink: var(--pink);
+  --color-pink-bg: var(--pink-bg);
+
+  --color-popover: var(--popover);
+  --color-nav-pill: var(--nav-pill);
+  --color-nav-active: var(--nav-active);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -44,31 +89,56 @@ body {
   border-color: var(--border);
 }
 
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
 
-.animate-shimmer {
-  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-}
-
+/* Animations */
 @keyframes fade-in {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
+.animate-fade-in { animation: fade-in 0.3s ease-out; }
 
-.animate-fade-in {
-  animation: fade-in 0.3s ease-out;
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up { animation: fade-in-up 0.5s ease-out; }
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 8px var(--dangerous-glow); }
+  50% { box-shadow: 0 0 20px var(--dangerous-glow), 0 0 40px var(--dangerous-glow); }
+}
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.animate-shimmer {
+  background: linear-gradient(90deg, var(--card) 25%, var(--border) 50%, var(--card) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
 }
 
-@keyframes pulse-dot {
+@keyframes score-fill {
+  from { stroke-dashoffset: 283; }
+}
+.animate-score-fill { animation: score-fill 1.5s ease-out forwards; }
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.animate-slide-in-right { animation: slide-in-right 0.3s ease-out; }
+
+@keyframes threat-pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.4; }
 }
+.animate-threat-pulse { animation: threat-pulse 1.5s ease-in-out infinite; }
 
-.animate-pulse-dot {
-  animation: pulse-dot 1.5s ease-in-out infinite;
-}
+/* Rim light effect for cards */
+.rim-light { border-top: 1px solid rgba(255,255,255,0.05); }
